@@ -53,6 +53,13 @@ PB_SNRT_TEST_NAMES = $(basename $(notdir $(wildcard $(PB_SNRT_TESTS_DIR)/*.c)))
 PB_SNRT_TEST_ELFS = $(abspath $(addprefix $(PB_SNRT_TESTS_BUILDDIR)/,$(addsuffix .elf,$(PB_SNRT_TEST_NAMES))))
 PB_SNRT_TEST_DUMP = $(abspath $(addprefix $(PB_SNRT_TESTS_BUILDDIR)/,$(addsuffix .dump,$(PB_SNRT_TEST_NAMES))))
 
+# Experiment variables
+MODE ?= HW_MCAST
+N_CLUSTERS ?= 16
+TRAN_LEN ?= 256
+
+SNRT_TESTS_RISCV_CFLAGS += -DN_CLUSTERS_TO_USE=$(N_CLUSTERS) -DMODE=$(MODE) -DTRAN_LEN=$(TRAN_LEN)
+
 .PHONY: pb-snrt-tests clean-pb-snrt-tests
 
 pb-sn-tests: $(PB_SNRT_TEST_ELFS) $(PB_SNRT_TEST_DUMP)
